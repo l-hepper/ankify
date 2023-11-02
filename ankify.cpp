@@ -4,11 +4,12 @@ using namespace std;
 
 void standardIteration(string fileName);
 int cardCount(string fileName);
+void formatForAnki(string fileName);
 
 int main(int argc, char* argv[]) {
 
     string fileName = argv[1];
-    standardIteration(fileName);
+    formatForAnki(fileName);
 
     return 0;
 }
@@ -28,6 +29,9 @@ int cardCount(string fileName) {
             lineCount++;
         }
     }
+
+    // TODO - add check for odd number of lines/empty file, etc, or even tabs in the file which would throw off the anki formatting
+
     return lineCount / 2;
 }
 
@@ -69,4 +73,34 @@ void standardIteration(string fileName) {
     }
 
     inputFile.close();
+}
+
+
+
+void formatForAnki(string fileName) {
+
+    fstream inputFile(fileName);
+
+    ofstream outputFile(fileName + "_for_anki.txt");
+    outputFile << "\t" << endl;
+
+    // Iterate through the file - replacing the end of questions with a /TAB to delineate front of card from back of card
+    string line;
+    bool endOfQuestion {true};
+    while (getline(inputFile, line)) {
+
+        if (line == "") {
+            continue;
+        }
+
+        if (endOfQuestion) {
+            outputFile << line << "\t";
+            endOfQuestion = false;
+        } else {
+            outputFile << line << endl;
+            endOfQuestion = true;
+        }
+    }
+    outputFile.close();
+
 }
