@@ -1,0 +1,15 @@
+This is the test file - this is the first line of the text file. This should be front of the first card.
+This is the test file - this is the second line of the text file. This should be the back of the first card.
+
+Test file - this should be front of the second card.
+Test file - this should be back of the second card.
+
+
+
+
+
+Test file - this should be front of the third card - empty lines above should be skipped.
+Test file - this should be back of the third card - empty lines above should be skipped.
+
+
+
