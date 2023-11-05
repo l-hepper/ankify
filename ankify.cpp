@@ -1,15 +1,21 @@
 #include <iostream>
 #include <fstream>
+#include <ios>
+#include <limits>
+
+
 using namespace std;
 
 void standardIteration(string fileName);
+void promptIteration(string fileName);
+
 int cardCount(string fileName);
 void formatForAnki(string fileName);
 
 int main(int argc, char* argv[]) {
 
     string fileName = argv[1];
-    formatForAnki(fileName);
+    promptIteration(fileName);
 
     return 0;
 }
@@ -59,7 +65,7 @@ void standardIteration(string fileName) {
             cout << currentCard << "/" << cardCountTotal << endl;
             
         cout << "\t" << line << endl;
-        cin.get();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         if (backOfCard) {
             // clear the terminal, restore cursor position, reset flag
@@ -75,8 +81,56 @@ void standardIteration(string fileName) {
     inputFile.close();
 }
 
+// iterates over text file but prompts the user for input, displaying either CORRECT or INCORRECT
+void promptIteration(string fileName) {
+
+    fstream inputFile(fileName);
+
+    // clear the screen and set cursor position to top-left
+    cout << "\033[2J";
+    cout << "\033[H";
+
+    int cardCountTotal = cardCount(fileName);
+    int currentCard {1};
+
+    string line {};
+    while (getline(inputFile, line)) {
+
+        if (line == "") 
+            continue;
+
+        cout << currentCard << "/" << cardCountTotal << endl;
+
+        cout << "\t" << line << endl;
+
+        string answer {};
+        getline(inputFile, answer);
+
+        string userInput {};
+        cout << "Enter your answer > ";
+        getline(cin, userInput);
+
+        if (userInput == answer) {
+            cout << "CORRECT" << endl;
+        } else {
+            cout << "INCORRECT. Answer is: " << answer << endl;
+        }
+
+        cout << "CONTINUE >>";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // clear the terminal, restore cursor position, reset flag
+        cout << "\033[2J";
+        cout << "\033[H";
+        currentCard++;
+        
+    }
+
+    inputFile.close();
+}
 
 
+// formats a plaintext file of question and answer notes (each separated by a \n) for direct import into Anki
 void formatForAnki(string fileName) {
 
     fstream inputFile(fileName);
