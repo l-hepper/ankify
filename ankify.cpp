@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <ios>
+#include <regex>
 #include <limits>
 
 
@@ -15,7 +16,7 @@ void formatForAnki(string fileName);
 int main(int argc, char* argv[]) {
 
     string fileName = argv[1];
-    promptIteration(fileName);
+    formatForAnki(fileName);
 
     return 0;
 }
@@ -135,6 +136,7 @@ void formatForAnki(string fileName) {
 
     fstream inputFile(fileName);
 
+    fileName = regex_replace(fileName, regex(".txt"), ""); // replace 'def' -> 'klm'
     ofstream outputFile(fileName + "_for_anki.txt");
     outputFile << "\t" << endl;
 
