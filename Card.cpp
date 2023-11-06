@@ -1,5 +1,6 @@
-#ifndef _CARD_H_
-#define _CARD_H_
+#include "Card.h"
+
+#include <iostream>
 
 class Card {
     private:
