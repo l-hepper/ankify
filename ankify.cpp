@@ -16,8 +16,10 @@ void formatForAnki(string fileName);
 int main(int argc, char* argv[]) {
 
     string fileName = argv[1];
-    formatForAnki(fileName);
+    standardIteration(fileName);
 
+
+    cout << "\033[1;1H";
     return 0;
 }
 
@@ -48,9 +50,9 @@ void standardIteration(string fileName) {
 
     fstream inputFile(fileName);
 
-    // clear the screen and set cursor position to top-left
-    cout << "\033[2J";
-    cout << "\033[H";
+    cout << "\033[2J"; // clear the screen
+    cout << "\033[20;8H"; // set cursor position
+    cout << "\033[s"; // save cursor position
 
     int cardCountTotal = cardCount(fileName);
     int currentCard {1};
@@ -63,15 +65,16 @@ void standardIteration(string fileName) {
             continue;
 
         if (!backOfCard)
-            cout << currentCard << "/" << cardCountTotal << endl;
+            cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
             
         cout << "\t" << line << endl;
+        cout << "\t";
+
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         if (backOfCard) {
-            // clear the terminal, restore cursor position, reset flag
-            cout << "\033[2J";
-            cout << "\033[H";
+            cout << "\033[2J"; // clear the terminal
+            cout << "\033[u"; // restore cursor position
             backOfCard = false;
             currentCard++;
         } else {
@@ -100,7 +103,7 @@ void promptIteration(string fileName) {
         if (line == "") 
             continue;
 
-        cout << currentCard << "/" << cardCountTotal << endl;
+        cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
 
         cout << "\t" << line << endl;
 
@@ -136,9 +139,10 @@ void formatForAnki(string fileName) {
 
     fstream inputFile(fileName);
 
-    fileName = regex_replace(fileName, regex(".txt"), ""); // replace 'def' -> 'klm'
+    fileName = regex_replace(fileName, regex(".txt"), ""); // solution for this form of replace found on stack overflow 
     ofstream outputFile(fileName + "_for_anki.txt");
-    outputFile << "\t" << endl;
+
+    outputFile << "\t" << endl; // insert tab on top line so anki recognises this as character to parse cards
 
     // Iterate through the file - replacing the end of questions with a /TAB to delineate front of card from back of card
     string line;
