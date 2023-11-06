@@ -4,6 +4,8 @@
 #include <regex>
 #include <limits>
 
+#include "Card.h"
+
 
 using namespace std;
 
@@ -11,17 +13,38 @@ void standardIteration(string fileName);
 void promptIteration(string fileName);
 void overkillIteration(string fileName);
 
+std::vector<Card> getArrayOfCards(string fileName);
+
 int cardCount(string fileName);
 void formatForAnki(string fileName);
 
 int main(int argc, char* argv[]) {
 
-    string fileName = argv[1];
-    overkillIteration(fileName);
+    vector<Card> deck = getArrayOfCards(argv[1]);
+    
+    cout << deck[0].getBack() << endl;
 
-    cout << "\033[2J"; // clear the screen
-    cout << "\033[H"; // set cursor position to top-left
     return 0;
+}
+
+std::vector<Card> getArrayOfCards(string fileName) {
+
+    fstream inputFile(fileName);
+
+    std::vector<Card> deck {};
+
+    string front {};
+    string back {};
+    while (getline(inputFile, front)) {
+        if (front == "")
+            continue;
+
+        getline(inputFile, back);
+        Card newCard(front, back);
+        deck.push_back(newCard);
+    }
+
+    return deck;
 }
 
 

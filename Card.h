@@ -1,17 +1,16 @@
 #ifndef _CARD_H_
 #define _CARD_H_
-
-#include <iostream>
+#include <string>
 
 class Card {
     private:
-        string front;
-        string back;
+        std::string front;
+        std::string back;
 
     public:
-        Card(string front, string back);
-        string getFront();
-        string getBack();
+        Card(const std::string& front, const std::string& back);
+        std::string getFront();
+        std::string getBack();
 
 };
 
