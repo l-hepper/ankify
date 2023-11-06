@@ -9,6 +9,7 @@ using namespace std;
 
 void standardIteration(string fileName);
 void promptIteration(string fileName);
+void overkillIteration(string fileName);
 
 int cardCount(string fileName);
 void formatForAnki(string fileName);
@@ -16,12 +17,13 @@ void formatForAnki(string fileName);
 int main(int argc, char* argv[]) {
 
     string fileName = argv[1];
-    standardIteration(fileName);
+    overkillIteration(fileName);
 
-
-    cout << "\033[1;1H";
+    cout << "\033[2J"; // clear the screen
+    cout << "\033[H"; // set cursor position to top-left
     return 0;
 }
+
 
 // Counts the number of 'cards' produced from the text file by counting the lines and dividing by 2 (there are two lines to each card - front and back)
 int cardCount(string fileName) {
@@ -85,9 +87,9 @@ void standardIteration(string fileName) {
     inputFile.close();
 }
 
+
 // iterates over text file but prompts the user for input, displaying either CORRECT or INCORRECT
 void promptIteration(string fileName) {
-
     fstream inputFile(fileName);
 
     // clear the screen and set cursor position to top-left
@@ -134,6 +136,59 @@ void promptIteration(string fileName) {
 }
 
 
+// overkill iteration will begin by iterating through the first three cards until all three are answered correctly before adding an additional card
+// the loop does not stop until all cards in the 'deck' are entered 100% correctly.
+// overkill iteration then repeats in the opposite direction - N.B. this is called overkill for reason
+void overkillIteration(string fileName) {
+
+    fstream inputFile(fileName);
+
+    cout << "\033[2J"; // clear the screen
+    cout << "\033[20;8H"; // set cursor position
+    cout << "\033[s"; // save cursor position
+
+    int cardCountTotal = cardCount(fileName);
+
+    string line {};
+    int correctCount {0};
+    while (correctCount != cardCountTotal) {
+
+        getline(inputFile, line);
+        if (line == "") 
+            continue;
+
+        cout << "\t" << line << endl;
+        cout << "\t";
+
+        string answer {};
+        getline(inputFile, answer);
+
+        string userInput {};
+        cout << "\n\tAnswer > ";
+        getline(cin, userInput);
+
+        if (userInput == answer) {
+            cout << "\n\t\033[32m\033[1mCORRECT.\033[0m" << endl << endl;
+            correctCount++;
+        } else {
+            cout << "\n\t\033[31m\033[1mINCORRECT.\033[0m" << endl << endl;
+            cout << "\tAnswer is: " << answer << endl;
+            correctCount = 0;
+        }
+
+        cout << endl << "\tCONTINUE >>";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // clear the terminal, restore cursor position
+        cout << "\033[2J";
+        cout << "\033[u"; // restore cursor position
+        
+    }
+
+    inputFile.close();
+}
+
+
 // formats a plaintext file of question and answer notes (each separated by a \n) for direct import into Anki
 void formatForAnki(string fileName) {
 
@@ -162,5 +217,5 @@ void formatForAnki(string fileName) {
         }
     }
     outputFile.close();
-
+    inputFile.close();
 }
