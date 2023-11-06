@@ -13,18 +13,14 @@ void standardIteration(string fileName);
 void promptIteration(string fileName);
 void overkillIteration(string fileName);
 
-std::vector<Card> getArrayOfCards(string fileName);
+vector<Card> getArrayOfCards(string fileName);
 
 int cardCount(string fileName);
 void formatForAnki(string fileName);
 
 int main(int argc, char* argv[]) {
 
-    vector<Card> deck = getArrayOfCards(argv[1]);
-    
-    cout << deck[0].getBack() << endl;
-
-    return 0;
+    promptIteration(argv[1]);
 }
 
 std::vector<Card> getArrayOfCards(string fileName) {
@@ -115,42 +111,46 @@ void standardIteration(string fileName) {
 void promptIteration(string fileName) {
     fstream inputFile(fileName);
 
-    // clear the screen and set cursor position to top-left
-    cout << "\033[2J";
-    cout << "\033[H";
+    cout << "\033[2J"; // clear the screen
+    cout << "\033[20;8H"; // set cursor position
 
     int cardCountTotal = cardCount(fileName);
     int currentCard {1};
-
+    int correct {0};
+    int incorrect {0};
     string line {};
     while (getline(inputFile, line)) {
 
         if (line == "") 
             continue;
 
-        cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
-
+        cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m";
+        cout << "\033[32m \tCORRECT: \033[37m" << "\033[1m" << correct << "/" << cardCountTotal << "\033[0m";
+        cout << "\033[31m \tINCORRECT: \033[37m" << "\033[1m" << incorrect << "/" << cardCountTotal << "\033[0m" << endl << endl;
         cout << "\t" << line << endl;
 
         string answer {};
         getline(inputFile, answer);
 
         string userInput {};
-        cout << "Enter your answer > ";
+        cout << "\n\tAnswer > ";
         getline(cin, userInput);
 
         if (userInput == answer) {
-            cout << "CORRECT" << endl;
+            cout << "\n\t\033[32m\033[1mCORRECT.\033[0m" << endl << endl;
+            correct++;
         } else {
-            cout << "INCORRECT. Answer is: " << answer << endl;
+            cout << "\n\t\033[31m\033[1mINCORRECT.\033[0m" << endl << endl;
+            cout << "\tAnswer is: " << answer << endl;
+            incorrect++;
         }
 
-        cout << "CONTINUE >>";
+        cout << "\n\tCONTINUE >>";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         // clear the terminal, restore cursor position, reset flag
         cout << "\033[2J";
-        cout << "\033[H";
+        cout << "\033[20;8H"; // set cursor position
         currentCard++;
         
     }
