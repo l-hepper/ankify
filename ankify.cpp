@@ -8,6 +8,7 @@
 #include "Deck.h"
 
 #include "validate.h"
+#include "mode.h"
 
 
 using namespace std;
@@ -18,8 +19,6 @@ void prompt(string fileName);
 void overkill(std::vector<Card> deck);
 
 void formatForAnki(string fileName);
-
-
 
 int main(int argc, char* argv[]) {
 
@@ -34,11 +33,12 @@ int main(int argc, char* argv[]) {
         return 1;
 
     Deck* deck = new Deck(argv[2]);
+    deck->printDeck();
+    cin.get();
 
     switch (argv[1][1]) {
         case 'r':
-            // mode::review(deck);
-            cout << "Case: r" << endl;
+            mode::review(deck);
         break;
         case 'p':
             // mode::prompt(deck)
@@ -48,9 +48,10 @@ int main(int argc, char* argv[]) {
             //mode::overkill(deck)
             cout << "Case: x" << endl;
         break;
-}
+    }
     
-
+    cout << "\033[2J"; // clear the screen
+    
     return 0;
 }
 

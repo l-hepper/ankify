@@ -10,8 +10,7 @@ using namespace std;
 
 class Deck {
     private:
-        vector<Card> deck;
-        size_t deckSize;
+        vector<Card> cardArray;
 
     public:
         // creates a deck and populates it with the provided text in the passed file
@@ -28,25 +27,23 @@ class Deck {
 
                 getline(inputFile, back);
                 Card newCard(front, back);
-                deck.push_back(newCard);
-                deckSize++;
+                cardArray.push_back(newCard);
             }
 
             inputFile.close();
         }
 
-        size_t size() {
-            return deckSize;
+        vector<Card> getCards() {
+            return cardArray;
         }
 
         void addCard(Card card) {
-            deck.push_back(card);
-            deckSize++;
+            cardArray.push_back(card);
         }
 
         // prints all of the cards in the deck to the terminal
         void printDeck() {
-            for (Card c : deck) {
+            for (Card c : cardArray) {
                 cout << "CARD FRONT: " << c.getFront() << endl;
                 cout << "CARD BACK: " << c.getBack() << endl;
         }
