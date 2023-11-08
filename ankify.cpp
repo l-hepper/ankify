@@ -5,18 +5,20 @@
 #include <limits>
 
 #include "Card.h"
+#include "Deck.h"
+
+#include "validate.h"
 
 
 using namespace std;
 
 // prototypes
-void standardIteration(string fileName);
-void promptIteration(string fileName);
-void overkillIteration(std::vector<Card> deck);
+void review(string fileName);
+void prompt(string fileName);
+void overkill(std::vector<Card> deck);
 
-vector<Card> getArrayOfCards(string fileName);
+Deck* createDeck(string filePath);
 void printDeck(vector<Card> deck);
-
 int cardCount(string fileName);
 void formatForAnki(string fileName);
 
@@ -24,51 +26,25 @@ void formatForAnki(string fileName);
 
 int main(int argc, char* argv[]) {
 
-    vector<Card> deck = getArrayOfCards(argv[1]);
+    validate::filePath = argv[1];
 
-    printDeck(deck);
+    Deck* deck {nullptr};
 
-}
-
-// Takes in a text file of cards and iterates through the line generates Card objects to add to a deck array
-vector<Card> getArrayOfCards(string fileName) {
-
-    fstream inputFile(fileName);
-
-    vector<Card> deck {};
-
-    string front {};
-    string back {};
-    while (getline(inputFile, front)) {
-        if (front == "")
-            continue;
-
-        getline(inputFile, back);
-        Card newCard(front, back);
-        deck.push_back(newCard);
+    if (validate::validateAll()) {
+        deck = new Deck(argv[1]);
+    } else {
+        return 1;
     }
 
-    inputFile.close();
-    return deck;
-}
-
-// Takes in an entire deck and prints to ensure that text file has been passed and parsed correctly
-void printDeck(const vector<Card> deck) {
-    for (int i {0}; i < deck.size(); i++) {
-        cout << "CARD " << i << " FRONT: " << deck[i].getFront() << endl;
-        cout << "CARD " << i << " BACK: " << deck[i].getBack() << endl;
-    }
-}
 
 
-// Counts the number of 'cards' produced from the text file by counting the lines and dividing by 2 (there are two lines to each card - front and back)
-int cardCount(vector<Card> deck) {
-    return deck.size();
+    return 0;
 }
+
 
 
 // iterates over text file displaying each card - first front, then back.
-// void standardIteration(string fileName) {
+// void review(string fileName) {
 
 //     fstream inputFile(fileName);
 
@@ -109,7 +85,7 @@ int cardCount(vector<Card> deck) {
 
 
 // iterates over text file but prompts the user for the answer, then informs of correct and incorrect and tracks record
-// void promptIteration(string fileName) {
+// void prompt(string fileName) {
 
 //     fstream inputFile(fileName);
 
@@ -165,7 +141,7 @@ int cardCount(vector<Card> deck) {
 // overkill iteration will begin by iterating through the first three cards until all three are answered correctly before adding an additional card
 // the loop does not stop until all cards in the 'deck' are entered 100% correctly.
 // overkill iteration then repeats in the opposite direction - N.B. this is called overkill for good reason and is not recommended for regular study
-// void overkillIteration(vector<Card> deck) {
+// void overkill(vector<Card> deck) {
 
 //     cout << "\033[2J"; // clear the screen
 //     cout << "\033[20;8H"; // set cursor position
