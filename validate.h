@@ -6,11 +6,23 @@
 
 using namespace std;
 
-
-// these functions validate the user input (filename, flags, argument number) etc
+// Validates the user input (filename, flags, argument number) etc
 namespace validate {
 
-    string filePath {};
+    string filePath {}; // filename passed to the command
+    string flag {};
+
+    // ensures that ankify command consists of three arguments
+    bool correctNumberOfArguments(int argc) {
+
+        if (argc != 3) {
+            cerr << "Incorrect number of arguments. Usage: ankify [-flag] [-filepath]" << endl;
+            return false;
+        }
+
+        return true;
+    }
+
 
     // ensures that the passed file can be found
     bool fileFound() {
@@ -48,16 +60,15 @@ namespace validate {
         return true;
     }
 
+
     // all checks must pass for the application to continue
-    bool validateAll() {
+    bool validateFile() {
 
-        if (!fileFound()) {
+        if (!fileFound())
             return false;
-        }
 
-        if (!correctNumberOfLines()) {
+        if (!correctNumberOfLines()) 
             return false;
-        }
 
         return true;
     }

@@ -17,26 +17,25 @@ void review(string fileName);
 void prompt(string fileName);
 void overkill(std::vector<Card> deck);
 
-Deck* createDeck(string filePath);
-void printDeck(vector<Card> deck);
-int cardCount(string fileName);
 void formatForAnki(string fileName);
 
 
 
 int main(int argc, char* argv[]) {
 
-    validate::filePath = argv[1];
-
-    Deck* deck {nullptr};
-
-    if (validate::validateAll()) {
-        deck = new Deck(argv[1]);
-    } else {
+    // ankify only works with 3 arguments in the command - i.e. ankify [-OPTION] [-FILEPATH]
+    if (!validate::correctNumberOfArguments(argc))
         return 1;
-    }
 
+    validate::flag = argv[1];
+    validate::filePath = argv[2];
 
+    if (!validate::validateFile())
+        return 1;
+
+    Deck* deck = new Deck(argv[2]);
+
+    
 
     return 0;
 }
