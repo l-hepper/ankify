@@ -9,8 +9,8 @@ class Card {
 
     public:
         Card(const std::string& front, const std::string& back);
-        std::string getFront();
-        std::string getBack();
+        std::string getFront() const;
+        std::string getBack() const;
 
 };
 
