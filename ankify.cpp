@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
             mode::review(deck);
         break;
         case 'p':
-            // mode::prompt(deck)
+            mode::prompt(deck);
             cout << "Case: p" << endl;
         break;
         case 'x':
@@ -55,47 +55,6 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-
-
-// iterates over text file displaying each card - first front, then back.
-// void review(string fileName) {
-
-//     fstream inputFile(fileName);
-
-//     cout << "\033[2J"; // clear the screen
-//     cout << "\033[20;8H"; // set cursor position
-//     cout << "\033[s"; // save cursor position
-
-//     int cardCountTotal = cardCount(fileName);
-//     int currentCard {1};
-
-//     bool backOfCard = false; // flag used to track if the front or back of the card has been displayed
-//     string line {};
-//     while (getline(inputFile, line)) {
-
-//         if (line == "") 
-//             continue;
-
-//         if (!backOfCard)
-//             cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
-            
-//         cout << "\t" << line << endl;
-//         cout << "\t";
-
-//         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-//         if (backOfCard) {
-//             cout << "\033[2J"; // clear the terminal
-//             cout << "\033[u"; // restore cursor position
-//             backOfCard = false;
-//             currentCard++;
-//         } else {
-//             backOfCard = true;
-//         }
-//     }
-
-//     inputFile.close();
-// }
 
 
 // iterates over text file but prompts the user for the answer, then informs of correct and incorrect and tracks record
