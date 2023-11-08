@@ -10,17 +10,38 @@ using namespace std;
 namespace validate {
 
     string filePath {}; // filename passed to the command
-    string flag {};
+    string option {};
+    char validOptions[] {'r', 'p', 'x'};
+
 
     // ensures that ankify command consists of three arguments
     bool correctNumberOfArguments(int argc) {
 
         if (argc != 3) {
-            cerr << "Incorrect number of arguments. Usage: ankify [-flag] [-filepath]" << endl;
+            cerr << "Incorrect number of arguments. Usage: ankify [-option] [-filepath]" << endl;
             return false;
         }
 
         return true;
+    }
+
+
+    // validates the option the user has specified in the command
+    bool correctOption() {
+
+        if (option.length() != 2) {
+            cerr << "The option '" << option << "' is not valid. See ankify -h for help" << endl;
+            return false;
+        }
+
+        for (auto o : validOptions) {
+            if (o == option[1]) {
+                return true;
+            }
+        }
+
+        cerr << "The option '" << option << "' is not valid. See ankify -h for help" << endl;
+        return false;
     }
 
 
@@ -64,6 +85,9 @@ namespace validate {
     // all checks must pass for the application to continue
     bool validateFile() {
 
+        if (!correctOption())
+            return false;
+
         if (!fileFound())
             return false;
 
@@ -73,7 +97,5 @@ namespace validate {
         return true;
     }
 }
-
-
 
 #endif

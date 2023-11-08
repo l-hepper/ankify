@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     if (!validate::correctNumberOfArguments(argc))
         return 1;
 
-    validate::flag = argv[1];
+    validate::option = argv[1];
     validate::filePath = argv[2];
 
     if (!validate::validateFile())
@@ -35,6 +35,20 @@ int main(int argc, char* argv[]) {
 
     Deck* deck = new Deck(argv[2]);
 
+    switch (argv[1][1]) {
+        case 'r':
+            // mode::review(deck);
+            cout << "Case: r" << endl;
+        break;
+        case 'p':
+            // mode::prompt(deck)
+            cout << "Case: p" << endl;
+        break;
+        case 'x':
+            //mode::overkill(deck)
+            cout << "Case: x" << endl;
+        break;
+}
     
 
     return 0;
