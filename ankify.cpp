@@ -9,6 +9,7 @@
 
 #include "validate.h"
 #include "mode.h"
+#include "generativeai.h"
 
 
 using namespace std;
@@ -26,89 +27,35 @@ int main(int argc, char* argv[]) {
     if (!validate::correctNumberOfArguments(argc))
         return 1;
 
-    validate::option = argv[1];
-    validate::filePath = argv[2];
+    generativeai::createFlashcards();
 
-    if (!validate::validateFile())
-        return 1;
 
-    Deck* deck = new Deck(argv[2]);
-    deck->printDeck();
-    cin.get();
+    // validate::option = argv[1];
+    // validate::filePath = argv[2];
 
-    switch (argv[1][1]) {
-        case 'r':
-            mode::review(deck);
-        break;
-        case 'p':
-            mode::prompt(deck);
-            cout << "Case: p" << endl;
-        break;
-        case 'x':
-            //mode::overkill(deck)
-            cout << "Case: x" << endl;
-        break;
-    }
+    // if (!validate::validateFile())
+    //     return 1;
+
+    // Deck* deck = new Deck(argv[2]);
+
+    // switch (argv[1][1]) {
+    //     case 'r':
+    //         mode::review(deck);
+    //     break;
+    //     case 'p':
+    //         mode::prompt(deck);
+    //         cout << "Case: p" << endl;
+    //     break;
+    //     case 'x':
+    //         //mode::overkill(deck)
+    //         cout << "Case: x" << endl;
+    //     break;
+    // }
     
-    cout << "\033[2J"; // clear the screen
+    // cout << "\033[2J"; // clear the screen
     
     return 0;
 }
-
-
-
-// iterates over text file but prompts the user for the answer, then informs of correct and incorrect and tracks record
-// void prompt(string fileName) {
-
-//     fstream inputFile(fileName);
-
-//     cout << "\033[2J"; // clear the screen
-//     cout << "\033[20;8H"; // set cursor position
-
-//     int cardCountTotal = cardCount(fileName);
-//     int currentCard {1};
-//     int correct {0};
-//     int incorrect {0};
-//     string line {};
-//     while (getline(inputFile, line)) {
-
-//         if (line == "") 
-//             continue;
-
-//         // these 4 lines are for the display of the status bar as the user iterates and works through the deck
-//         cout << "\033[36m CARDS REMAINING: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m";
-//         cout << "\033[32m \tCORRECT: \033[37m" << "\033[1m" << correct << "/" << cardCountTotal << "\033[0m";
-//         cout << "\033[31m \tINCORRECT: \033[37m" << "\033[1m" << incorrect << "/" << cardCountTotal << "\033[0m" << endl << endl;
-//         cout << "\t" << line << endl;
-
-//         string answer {};
-//         getline(inputFile, answer);
-
-//         string userInput {};
-//         cout << "\n\tAnswer > ";
-//         getline(cin, userInput);
-
-//         if (userInput == answer) {
-//             cout << "\n\t\033[32m\033[1mCORRECT.\033[0m" << endl << endl;
-//             correct++;
-//         } else {
-//             cout << "\n\t\033[31m\033[1mINCORRECT.\033[0m" << endl << endl;
-//             cout << "\tAnswer is: " << answer << endl;
-//             incorrect++;
-//         }
-
-//         cout << "\n\tCONTINUE >>";
-//         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-//         // clear the terminal, restore cursor position, reset flag
-//         cout << "\033[2J";
-//         cout << "\033[20;8H"; // set cursor position
-//         currentCard++;
-        
-//     }
-
-//     inputFile.close();
-// }
 
 
 // overkill iteration will begin by iterating through the first three cards until all three are answered correctly before adding an additional card
