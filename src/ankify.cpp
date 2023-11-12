@@ -27,32 +27,27 @@ int main(int argc, char* argv[]) {
     if (!validate::correctNumberOfArguments(argc))
         return 1;
 
-    generativeai::createFlashcards();
+    validate::option = argv[1];
+    validate::filePath = argv[2];
 
+    if (!validate::validateFile())
+        return 1;
 
-    // validate::option = argv[1];
-    // validate::filePath = argv[2];
+    Deck* deck = new Deck(argv[2]);
 
-    // if (!validate::validateFile())
-    //     return 1;
-
-    // Deck* deck = new Deck(argv[2]);
-
-    // switch (argv[1][1]) {
-    //     case 'r':
-    //         mode::review(deck);
-    //     break;
-    //     case 'p':
-    //         mode::prompt(deck);
-    //         cout << "Case: p" << endl;
-    //     break;
-    //     case 'x':
-    //         //mode::overkill(deck)
-    //         cout << "Case: x" << endl;
-    //     break;
-    // }
+    switch (argv[1][1]) {
+        case 'r':
+            mode::review(deck);
+        break;
+        case 'p':
+            mode::prompt(deck);
+        break;
+        case 'a':
+            formatForAnki(argv[2]);
+        break;
+    }
     
-    // cout << "\033[2J"; // clear the screen
+    cout << "\033[2J"; // clear the screen
     
     return 0;
 }

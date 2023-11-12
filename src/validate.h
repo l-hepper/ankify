@@ -11,7 +11,7 @@ namespace validate {
 
     string filePath {}; // filename passed to the command
     string option {};
-    char validOptions[] {'r', 'p', 'x'};
+    char validOptions[] {'r', 'p', 'x', 'a'};
 
 
     // ensures that ankify command consists of three arguments
@@ -64,7 +64,11 @@ namespace validate {
 
         int count {0};
         string line {};
+
         while(getline(file, line)) {
+            if (line == "") {
+                continue;
+            }
             count++;
         }
 
