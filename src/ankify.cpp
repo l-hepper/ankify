@@ -15,8 +15,6 @@
 using namespace std;
 
 // prototypes
-void review(string fileName);
-void prompt(string fileName);
 void overkill(std::vector<Card> deck);
 
 void formatForAnki(string fileName);
@@ -42,6 +40,8 @@ int main(int argc, char* argv[]) {
         case 'p':
             mode::prompt(deck);
         break;
+        case 'x':
+            mode::overkillPrompt(deck);
         case 'a':
             formatForAnki(argv[2]);
         break;
@@ -53,53 +53,7 @@ int main(int argc, char* argv[]) {
 }
 
 
-// overkill iteration will begin by iterating through the first three cards until all three are answered correctly before adding an additional card
-// the loop does not stop until all cards in the 'deck' are entered 100% correctly.
-// overkill iteration then repeats in the opposite direction - N.B. this is called overkill for good reason and is not recommended for regular study
-// void overkill(vector<Card> deck) {
 
-//     cout << "\033[2J"; // clear the screen
-//     cout << "\033[20;8H"; // set cursor position
-
-//     int cardCountTotal = cardCount(deck);
-
-//     string line {};
-//     int correctCount {0};
-//     int i = 0;
-//     while (correctCount != cardCountTotal) {
-
-//         line = deck[i].getFront();
-
-//         cout << "\t" << line << endl;
-//         cout << "\t";
-
-//         string answer {};
-//         getline(inputFile, answer);
-
-//         string userInput {};
-//         cout << "\n\tAnswer > ";
-//         getline(cin, userInput);
-
-//         if (userInput == answer) {
-//             cout << "\n\t\033[32m\033[1mCORRECT.\033[0m" << endl << endl;
-//             correctCount++;
-//         } else {
-//             cout << "\n\t\033[31m\033[1mINCORRECT.\033[0m" << endl << endl;
-//             cout << "\tAnswer is: " << answer << endl;
-//             correctCount = 0;
-//         }
-
-//         cout << endl << "\tCONTINUE >>";
-//         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-//         // clear the terminal, restore cursor position
-//         cout << "\033[2J";
-//         cout << "\033[u"; // restore cursor position
-        
-//     }
-
-//     inputFile.close();
-// }
 
 
 // formats a plaintext file of question and answer notes (each separated by a \n) for direct import into Anki

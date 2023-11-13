@@ -6,9 +6,3 @@ Card back 2
 
 Card front 3
 Card back 3
-
-Card front 4
-Card back 4
-
-Card front 5
-Card back 5
