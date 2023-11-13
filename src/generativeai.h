@@ -4,20 +4,49 @@
 #include <iostream>
 #include <fstream>
 #include <curl/curl.h>
-
+#include <algorithm>
 
 using namespace std;
 
 namespace generativeai {
 
-    // Callback function to handle response data - solution found on stack overflow (this is not provided with libcurl??)
+    // Callback function to handle response data
     size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
         size_t totalSize = size * nmemb;
         output->append((char*)contents, totalSize);
         return totalSize;
     }
 
-    void createFlashcards() {
+
+    string generatePromptToFormatCards(string fileName) {
+
+        string promptToFormatProse = "Generate question and answer pairs based on the provided prose text. "
+                                "Ensure that all main points of the text are covered in a question/answer pair. "
+                                 "Ensure the format of the pairs is as follows: "
+                                 "<Question on a single line i.e., within a carriage return> "
+                                 "<Answer on a single line i.e., within a carriage return> "
+                                 "Text for question and answer pairs: ";
+
+        fstream inputFile(fileName);
+
+        string line {};
+        while (getline(inputFile, line)) {
+            if (line == "") {
+                continue;
+            }
+            promptToFormatProse += line;
+        }
+
+        // double quotes will throw off the parsing of the JSON file so - for a simple solution - they are replaced with single quotes
+        std::replace(promptToFormatProse.begin(), promptToFormatProse.end(), '"', '\'');
+        
+        inputFile.close();
+
+        return promptToFormatProse;
+    }
+
+    // Make an API request to gpt-3.5 with the provided string as a prompt - JSON response is written to 'output.txt'
+    void apiRequestToGPT(string prompt) {
 
         CURL *curl = curl_easy_init();
         CURLcode res;
@@ -27,10 +56,6 @@ namespace generativeai {
 
         // header list
         struct curl_slist *list = NULL;
-
-        string prompt;
-        cout << "Enter prompt:";
-        getline(cin, prompt);
 
         string api_key = getenv("OPENAI_API_KEY"); // environment variable must be set - add functionality for user to set their environment variable otherwise this function will not work
         string authorization_header = "Authorization: Bearer " + api_key;
@@ -69,8 +94,6 @@ namespace generativeai {
 
         // Clean up global state
         curl_global_cleanup();
-
-        cout << "=== PRINTING RESPONSE ===" << endl << response << endl;
 
         ofstream outputFile("output.txt");
         outputFile << response;

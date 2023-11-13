@@ -28,6 +28,14 @@ int main(int argc, char* argv[]) {
     validate::option = argv[1];
     validate::filePath = argv[2];
 
+    if (validate::option == "-q") {
+        string prompt = generativeai::generatePromptToFormatCards(argv[2]);
+        cout << prompt << endl;
+        generativeai::apiRequestToGPT(prompt);
+        return 1;
+    }
+
+
     if (!validate::validateFile())
         return 1;
 
