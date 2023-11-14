@@ -6,9 +6,12 @@
 #include <curl/curl.h>
 #include <algorithm>
 
+#include "json.h"
+
 using namespace std;
 
 namespace generativeai {
+
 
     // Callback function to handle response data
     size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
@@ -18,6 +21,19 @@ namespace generativeai {
     }
 
 
+    string getGPTResponseContentFromJSON(string jsonResponse) {
+
+        // Parse the JSON string
+        nlohmann::json json_data = nlohmann::json::parse(jsonResponse);
+
+        // get 'content' value
+        string value = json_data["choices"][0]["message"]["content"];
+
+        return value;
+    }
+
+
+    // Constructs the gpt prompt with a combination of hard-coded text instructing the creation of flashcards and the textfile input by the user
     string generatePromptToFormatCards(string fileName) {
 
         string promptToFormatProse = "Generate question and answer pairs based on the provided prose text. "
@@ -96,7 +112,8 @@ namespace generativeai {
         curl_global_cleanup();
 
         ofstream outputFile("output.txt");
-        outputFile << response;
+        outputFile << getGPTResponseContentFromJSON(response);
+        outputFile << endl;
         outputFile.close();
     }
 
