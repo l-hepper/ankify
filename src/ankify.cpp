@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     if (validate::option == "-q") {
         string prompt = generativeai::generatePromptToFormatCards(argv[2]);
         cout << prompt << endl;
-        generativeai::apiRequestToGPT(prompt);
+        generativeai::apiRequestToGPT(prompt, argv[2]);
         return 1;
     }
 

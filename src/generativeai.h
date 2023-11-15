@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <regex>
+#include <limits>
+#include <fstream>
 #include <curl/curl.h>
 #include <algorithm>
 
@@ -62,7 +65,7 @@ namespace generativeai {
     }
 
     // Make an API request to gpt-3.5 with the provided string as a prompt - JSON response is written to 'output.txt'
-    void apiRequestToGPT(string prompt) {
+    void apiRequestToGPT(string prompt, string filename) {
 
         CURL *curl = curl_easy_init();
         CURLcode res;
@@ -111,7 +114,9 @@ namespace generativeai {
         // Clean up global state
         curl_global_cleanup();
 
-        ofstream outputFile("output.txt");
+        filename = regex_replace(filename, regex(".txt"), ""); // solution for this form of replace found on stack overflow 
+        ofstream outputFile(filename + "_gptflashcards.txt");
+        
         // outputFile << getGPTResponseContentFromJSON(response);
         outputFile << endl;
         outputFile.close();
