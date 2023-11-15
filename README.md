@@ -6,7 +6,6 @@ CLI Tool for managing  and processing notes - includes modes for learning/review
 Ankify is intended for use with .txt files consisting of question and answer pairs to construct flashcards. These text files should be formatted as follows, with each side of the card 
 
 <pre>
-```plaintext
 Front of first card
 Back of first card
 
@@ -15,7 +14,6 @@ Back of second card
 
 Front of third card
 Back of third card
-```
 </pre>
 
 # usage
