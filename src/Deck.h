@@ -13,6 +13,8 @@ class Deck {
         vector<Card> cardArray;
 
     public:
+        Deck() {};
+
         // creates a deck and populates it with the provided text in the passed file
         Deck(string filePath) {
 
