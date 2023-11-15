@@ -34,9 +34,9 @@ HTTP status code 401 indicates "Unauthorized." - valid credentials have not been
 N.B. Ankify uses TABS or '\t' to format notes for import into Anki, it is recommended NOT to have tabs in your notes if you intend to use this formatting feature.
 
 # usage
-
+<pre>
 ankify  \[option]  \[filename.txt]
-
+</pre>
 To use Ankify type the 'ankify' command followed by the appropriate flag for the mode you want to run Ankify in, finally followed by the filename you are passing in to Ankify.
 
 e.g. 
@@ -71,5 +71,7 @@ ankify -x my_notes.txt
 
 N.B. not recommended for regular study.
 
+A variation of Prompt Mode - overkill mode begins with a pool of 2 cards. These 2 cards must be answered correctly to increase the pool to 3. These 3 cards must then be answered correctly to increase the pool to 4, these 4 cards must then be answered correctly to increase the pool to 5. This mode successfully completes once all of the cards are in the pool and answered correctly in a row. If at any point an incorrect answer is provided - the entire process begins again from a pool size of 2. 
 
+TIP: this mode can be used with small, atomic cards, such as testing knowledge of CLI commands. Ensure that no typos are in your answer before submitting to avoid frustration.
 
