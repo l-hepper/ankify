@@ -1,0 +1,8 @@
+What does it mean to say that arrays are stored 'contiguously' in memory? 
+This means that the blocks of data are all adjacent to each other in memory. If an element of 4 bytes is stored at location '1000', then the next element starts at location 1004
+
+To what two files in Linux do programs send their outputs?
+stdout and stderr
+
+What does an HTTP status code of 401 indicate?
+HTTP status code 401 indicates "Unauthorized." - valid credentials have not been included in the 'Authorization' header

@@ -10,6 +10,21 @@ using namespace std;
 
 namespace mode {
 
+    void printTitle() {
+                string word = R"(
+                            _    _  __       
+                /\         | |  (_)/ _|      
+               /  \   _ __ | | ___| |_ _   _ 
+              / /\ \ | '_ \| |/ / |  _| | | |
+             / ____ \| | | |   <| | | | |_| |
+            /_/    \_\_| |_|_|\_\_|_|  \__, |
+                                        __/ |
+            v1.0                       |___/ 
+                )";
+
+        cout << word << endl;
+    }
+
     void review(Deck *deck) {
 
         int cardCountTotal = deck->getCards().size();
@@ -18,9 +33,9 @@ namespace mode {
         for (auto card : deck->getCards()) {
 
             cout << "\033[2J"; // clear the screen
-            cout << "\033[20;8H"; // set cursor position
-
-            cout << "\033[36m\033[1m CURRENT CARD: \033[37m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
+            cout << "\033[15;8H"; // set cursor position
+            printTitle();
+            cout << "\033[36m\033[1m\tCURRENT CARD: \033[37m" << currentCard << "/" << cardCountTotal << "\033[0m" << endl << endl;
 
             cout << "\t" << card.getFront() << endl;
             cout << "\t";
@@ -45,12 +60,12 @@ namespace mode {
         for (auto card : deck->getCards()) {
 
             cout << "\033[2J"; // clear the screen
-            cout << "\033[20;8H"; // set cursor position
-
+            cout << "\033[15;8H"; // set cursor position
+            printTitle();
             // these 4 lines are for the display of the status bar as the user iterates and works through the deck
-            cout << "\033[36m \033[1mCURRENT CARD: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m";
-            cout << "\033[32m \033[1m\tCORRECT: \033[37m" << "\033[1m" << correct << "/" << cardCountTotal << "\033[0m";
-            cout << "\033[31m \033[1m\tINCORRECT: \033[37m" << "\033[1m" << incorrect << "/" << cardCountTotal << "\033[0m" << endl << endl;
+            cout << "\033[36m\033[1m\tCURRENT CARD: \033[37m" << "\033[1m" << currentCard << "/" << cardCountTotal << "\033[0m";
+            cout << "\033[32m\033[1m   CORRECT: \033[37m" << "\033[1m" << correct << "/" << cardCountTotal << "\033[0m";
+            cout << "\033[31m\033[1m   INCORRECT: \033[37m" << "\033[1m" << incorrect << "/" << cardCountTotal << "\033[0m" << endl << endl;
 
             cout << "\t" << card.getFront() << endl;
 
@@ -93,7 +108,7 @@ namespace mode {
 
             cout << "\033[2J"; // clear the screen
             cout << "\033[20;8H"; // set cursor position
-
+            printTitle();
             // status bar
             cout << "\033[32m \033[1mCORRECT: \033[37m" << "\033[1m" << correctTotal << "/" << currentPoolSize << "\033[0m";
             cout << "\033[36m \033[1m\tCURRENT POOL SIZE: \033[37m" << "\033[1m" << currentPoolSize << "/" << cardCountTotal << "\033[0m";

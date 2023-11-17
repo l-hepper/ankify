@@ -15,11 +15,12 @@
 using namespace std;
 
 // prototypes
-void overkill(std::vector<Card> deck);
-
 void formatForAnki(string fileName);
+void printTitle();
 
 int main(int argc, char* argv[]) {
+
+    printTitle();
 
     // ankify only works with 3 arguments in the command - i.e. ankify [-OPTION] [-FILEPATH]
     if (!validate::correctNumberOfArguments(argc))
@@ -93,4 +94,17 @@ void formatForAnki(string fileName) {
     }
     outputFile.close();
     inputFile.close();
+}
+
+void printTitle() {
+    string word = R"(
+                _    _  __       
+    /\         | |  (_)/ _|      
+   /  \   _ __ | | ___| |_ _   _ 
+  / /\ \ | '_ \| |/ / |  _| | | |
+ / ____ \| | | |   <| | | | |_| |
+/_/    \_\_| |_|_|\_\_|_|  \__, |
+                            __/ |
+v1.0                       |___/ 
+                        )";
 }
