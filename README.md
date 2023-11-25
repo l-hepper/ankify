@@ -47,6 +47,8 @@ ankify -r my_notes.txt
 
 **Review Mode**
 
+![Screenshot of Review Mode](https://github.com/l-hepper/ankify/blob/main/screenshots/2023-11-17_15-16.png)
+
 <pre>
 ankify -r my_notes.txt
 </pre>
