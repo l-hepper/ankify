@@ -1,4 +1,7 @@
 # ankify
+
+![Screenshot title](https://github.com/l-hepper/ankify/blob/main/screenshots/2023-11-17_15-17.png)
+
 CLI Tool for managing  and processing notes - includes modes for learning/review, self-testing(including an 'overkill' mode') and functionality to format the notes ready for import into Anki. This tool can utilise the gpt-3.5 API also to format regular prose notes into flashcard format suitable for Ankify.
 
 # installation
@@ -56,6 +59,8 @@ ankify -r my_notes.txt
 This mode simply iterates over the collection of flashcards, the 'ENTER' key can be used to display the back of cards and move onto the next card, while a card counter keeps track of the cards remaining. This mode is recommended for casual review and learning.
 
 **Prompt Mode**
+
+![Screenshot of Review Mode](https://github.com/l-hepper/ankify/blob/main/screenshots/2023-11-17_15-16_1.png)
 
 <pre>
 ankify -p my_notes.txt
