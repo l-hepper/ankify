@@ -2,7 +2,7 @@
 
 ![Screenshot title](https://github.com/l-hepper/ankify/blob/main/screenshots/2023-11-17_15-17.png)
 
-CLI Tool for managing  and processing notes - includes modes for learning/review, self-testing(including an 'overkill' mode') and functionality to format the notes ready for import into Anki. This tool can utilise the gpt-3.5 API also to format regular prose notes into flashcard format suitable for Ankify.
+CLI Tool for managing  and processing notes - includes modes for learning/review, self-testing and functionality to format the notes ready for import into Anki. This tool can utilise the gpt-3.5 API also to format regular prose notes into flashcard format suitable for Ankify.
 
 # installation
 
@@ -80,7 +80,7 @@ A variation of Prompt Mode - overkill mode begins with a pool of 2 cards. These 
 
 TIP: this mode can be used with small, atomic cards, such as testing knowledge of CLI commands. Ensure that no typos are in your answer before submitting to avoid frustration.
 
-**Formatting Flashcard Notes for Import to Anki**
+# Formatting Flashcard Notes for Import to Anki
 
 <pre>
 ankify -a my_notes.txt
@@ -90,7 +90,7 @@ Ankify began as a simple script to format text notes created in VIM to a format 
 
 The formatted .txt files will be output to the working directory as the original filename with '_for_anki' appended. So 'my_notes.txt' will become 'my_notes_for_anki.txt'. These 'for_anki' .txt files can then be imported to anki as a basic question and answer pair, eliminating the need to manually enter cards.
 
-**Formatting Prose into Flashcard format**
+# GPT-3.5 Integration to produce flashcards from prose notes
 
 <pre>
 ankify -q my_notes.txt
