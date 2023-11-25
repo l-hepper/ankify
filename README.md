@@ -100,11 +100,25 @@ Ankify incorporates the gpt-3.5 API to take regular prose notes and generate fla
 
 **Prose Notes**
 <pre>
-The Roman Empire, one of the most influential civilizations in history, existed for over a millennium, from 27 BCE to 476 CE. Established by Augustus Caesar, the first Emperor of Rome, it encompassed vast territories, stretching from Britain in the north to Egypt in the south and spanning three continents. The empire reached its territorial zenith in 117 CE under Emperor Trajan, covering approximately 5 million square kilometers.
+The Roman Empire, one of the most influential civilizations in history, existed for over <br>
+a millennium, from 27 BCE to 476 CE. Established by Augustus Caesar, the first Emperor of Rome, <br>
+it encompassed vast territories, stretching from Britain in the north to Egypt in the south and <br>
+spanning three continents. The empire reached its territorial zenith in 117 CE under Emperor <br>
+Trajan, covering approximately 5 million square kilometers.
 
-Rome's political structure evolved from a republic to an autocracy, with a series of emperors leading the state. Augustus, born Gaius Octavius, initiated the Pax Romana, a period of relative peace and stability that lasted for about two centuries. The Roman Empire was characterized by remarkable engineering feats, exemplified by the construction of the Colosseum in 80 CE and the extensive network of roads, such as the famous Appian Way. Rome's population peaked at around one million people, making it the largest city in the ancient world.
+Rome's political structure evolved from a republic to an autocracy, with a series of emperors <br>
+leading the state. Augustus, born Gaius Octavius, initiated the Pax Romana, a period of relative <br>
+peace and stability that lasted for about two centuries. The Roman Empire was characterized by <br>
+remarkable engineering feats, exemplified by the construction of the Colosseum in 80 CE and the <br>
+extensive network of roads, such as the famous Appian Way. Rome's population peaked at around one <br>
+million people, making it the largest city in the ancient world.
 
-Despite its grandeur, internal strife and external pressures led to the eventual decline of the Roman Empire. Economic challenges, military conflicts, and political instability contributed to its fragmentation. The year 476 CE marks the traditional date for the fall of the Western Roman Empire, when the last Roman emperor, Romulus Augustulus, was deposed by the Germanic chieftain Odoacer. The Eastern Roman Empire, known as the Byzantine Empire, continued for nearly a thousand years until the fall of Constantinople in 1453.
+Despite its grandeur, internal strife and external pressures led to the eventual decline of the <br>
+Roman Empire. Economic challenges, military conflicts, and political instability contributed to <br>
+its fragmentation. The year 476 CE marks the traditional date for the fall of the Western Roman <br>
+Empire, when the last Roman emperor, Romulus Augustulus, was deposed by the Germanic chieftain <br>
+Odoacer. The Eastern Roman Empire, known as the Byzantine Empire, continued for nearly a thousand <br>
+years until the fall of Constantinople in 1453.
 </pre>
 
 **GPT-3.5 Generated Flashcards**
